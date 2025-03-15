@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dokkan Damage Taken Calculator</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>Damage Taken Calculator</h1>
+  </header>
+
+  <main>
+    <form id="calcForm">
+      <!-- Enemy ATK -->
+      <div class="input-group">
+        <label for="enemyAtk">Enemy ATK:</label>
+        <input type="number" id="enemyAtk" placeholder="e.g. 600000" step="any" />
+        <div class="explanation">
+          The boss’s attack stat for the attack you’re receiving. Check dokkaninfo to find out.
+        </div>
+      </div>
+
+      <!-- Enemy Type (no empty line after) -->
+      <div class="input-group no-space">
+        <label for="enemyType">Enemy Type:</label>
+        <select id="enemyType">
+          <option value="Agl">AGL</option>
+          <option value="Str">STR</option>
+          <option value="Phy">PHY</option>
+          <option value="Int">INT</option>
+          <option value="Teq">TEQ</option>
+        </select>
+      </div>
+
+      <!-- Enemy Class (no empty line after) -->
+      <div class="input-group no-space">
+        <label for="enemyClass">Enemy Class:</label>
+        <select id="enemyClass">
+          <option value="Super">Super</option>
+          <option value="Extreme">Extreme</option>
+        </select>
+      </div>
+
+      <!-- Your Unit Type (no empty line after) -->
+      <div class="input-group no-space">
+        <label for="unitType">Your Unit Type:</label>
+        <select id="unitType">
+          <option value="Agl">AGL</option>
+          <option value="Str">STR</option>
+          <option value="Phy">PHY</option>
+          <option value="Int">INT</option>
+          <option value="Teq">TEQ</option>
+        </select>
+      </div>
+
+      <!-- Your Unit Class (no empty line after) -->
+      <div class="input-group no-space">
+        <label for="unitClass">Your Unit Class:</label>
+        <select id="unitClass">
+          <option value="Super">Super</option>
+          <option value="Extreme">Extreme</option>
+        </select>
+      </div>
+
+      <!-- DR Normals -->
+      <div class="input-group">
+        <label for="drNormals">DR (Normals) (%):</label>
+        <input type="number" id="drNormals" placeholder="e.g. 30" step="any" />
+        <div class="explanation">
+          Damage Reduction from unit's passive.
+        </div>
+      </div>
+
+      <!-- DR Other -->
+      <div class="input-group">
+        <label for="drOther">DR (Other) (%):</label>
+        <input type="number" id="drOther" placeholder="e.g. 0" step="any" />
+        <div class="explanation">
+          Damage Reduction from items / other units / leaders.
+        </div>
+      </div>
+
+      <!-- TDB Level -->
+      <div class="input-group">
+        <label for="tdbLevel">TDB Level (0-15):</label>
+        <input type="number" id="tdbLevel" placeholder="e.g. 10" step="1" min="0" max="15" />
+        <div class="explanation">
+          The blue def icon in Hidden Potential. It's called Type Defence Boost. Only works when there is type advantage.
+        </div>
+      </div>
+
+      <!-- Guard Active -->
+      <div class="input-group">
+        <label for="guardActive">
+          <input type="checkbox" id="guardActive" />
+          Guard Active
+        </label>
+      </div>
+
+      <!-- Effective DEF (Main Input) -->
+      <div class="input-group">
+        <label for="effectiveDef">Effective DEF:</label>
+        <input type="number" id="effectiveDef" placeholder="e.g. 300000" step="any" />
+        <div class="explanation">
+          The DEF stat when your unit is in rotation in a game.<br>
+          If not in game or not in rotation, calculate Effective DEF below.
+        </div>
+      </div>
+    </form>
+
+    <!-- Results -->
+    <div id="resultDisplay">
+      <h2>Damage Taken:</h2>
+      <p id="damageResult">--</p>
+    </div>
+
+    <!-- Formula Display -->
+    <div id="formulaDisplay">
+      <h3>Calculation Formula</h3>
+      <pre id="formulaText">
+Damage Taken = (EnemyATK × [Base Multiplier ± TDB] × Variance × (1 - DR_normals) × (1 - DR_other) - EffectiveDEF) × [Guard? 0.5 : 1.0]
+      </pre>
+    </div>
+
+    <!-- Effective DEF Calculator Section -->
+    <section id="defCalcSection">
+      <h2>Effective DEF Calculator</h2>
+      <p>Calculate Effective DEF using base stats if your unit is not in rotation.</p>
+
+      <div class="input-group">
+        <label for="calc_baseDef">Base DEF:</label>
+        <input type="number" id="calc_baseDef" placeholder="e.g. 12000" step="any" />
+        <div class="explanation">
+          Base DEF stat.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="calc_leaderBonus">Leader Bonus (%):</label>
+        <input type="number" id="calc_leaderBonus" placeholder="e.g. 170" step="any" />
+        <div class="explanation">
+          Leader bonus percentage.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="calc_passiveBonus">Passive Bonus (%):</label>
+        <input type="number" id="calc_passiveBonus" placeholder="e.g. 100" step="any" />
+        <div class="explanation">
+          Passive bonus percentage.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="calc_supportBonus">Support Bonus (%):</label>
+        <input type="number" id="calc_supportBonus" placeholder="e.g. 30" step="any" />
+        <div class="explanation">
+          Support bonus percentage.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="calcEffectiveDefResult">Calculated Effective DEF:</label>
+        <input type="number" id="calcEffectiveDefResult" readonly />
+        <div class="explanation">
+          This is computed as: Base DEF × (1 + Leader Bonus/100 + Passive Bonus/100 + Support Bonus/100)
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
