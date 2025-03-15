@@ -1,0 +1,114 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: sans-serif;
+  background: #f9f9f9;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+/* Main: just one column layout now, no aside */
+main {
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* Input Groups, stacked with explanation below */
+.input-group {
+  display: flex;
+  flex-direction: column;  /* Explanation goes on a new line */
+  margin-bottom: 1.5em;    /* Creates empty line (vertical space) */
+}
+
+.no-space {
+  margin-bottom: 0;        /* No extra space for type/class lines */
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Explanation styling */
+.explanation {
+  margin-top: 0;          /* No extra space above explanation */
+  font-size: 0.9em;       /* Slightly smaller font */
+  color: #999;            /* Light grey */
+  line-height: 1.4;
+  font-style: italic;     /* Italicize explanation text */
+  padding-left: 20px;     /* Indent explanation */
+}
+
+.explanation::before {
+  content: "— ";          /* Em-dash before explanation text */
+  margin-left: -20px;     /* Pull dash back so it aligns with the indent */
+  color: #999;            /* Match dash color to explanation text */
+}
+
+/* Result Display */
+#resultDisplay {
+  background: #e8f4ff;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+#resultDisplay h2 {
+  margin-bottom: 10px;
+}
+
+/* Formula Display */
+#formulaDisplay {
+  background: #fffbe8;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+#formulaDisplay pre {
+  background: #f2f2f2;
+  padding: 10px;
+  white-space: pre-wrap;
+  border-radius: 4px;
+  font-family: Consolas, monospace;
+}
+
+/* Effective DEF Calculator Section */
+#defCalcSection {
+  background: #eef;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 30px;
+}
+
+#defCalcSection h2 {
+  margin-bottom: 10px;
+}
+
+#calcEffectiveDefResult[readonly] {
+  background: #fafafa;
+}
